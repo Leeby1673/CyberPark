@@ -1,6 +1,10 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", function() {
+    var passwordField = document.getElementById("password");
+    var confirmPasswordField = document.getElementById("password-again");
+    var statusMsg = document.getElementById("register-status")
+
     // 監聽註冊功能
     const signupForm = document.getElementById("signupForm");
     signupForm.addEventListener("submit", function(event) {
