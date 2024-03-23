@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 // 獲取登入網頁
@@ -20,10 +21,32 @@ func LoginHandler(c *gin.Context) {
 	db := db.Connect()
 	var user models.User
 	var existingUser models.User
+
+	// 使用者輸入的資料映射到 user
+	if err := c.ShouldBind(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// 檢查資料庫有無使用者的帳號
 	if err := db.Where("email = ?", user.Email).First(&existingUser).Error; err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": "not founded email"})
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "login failure"})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		}
+		return
 	}
+
+	// 驗證密碼
+	if err := bcrypt.CompareHashAndPassword([]byte(existingUser.Password), []byte(user.Password)); err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "login failure"})
+		return
+	}
+
+	// 驗證成功
+	c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
 }
 
 // 獲取註冊網頁

@@ -20,16 +20,29 @@
 					</div>
 					<div class="card fat">
 						<div class="card-body">
-							<h4 class="card-title">Login</h4>
-							<form method="POST" id="signupForm" class="my-login-validation" novalidate="">
+							<div class="row">
+								<div class="col">
+									<h4 class="card-title">Login</h4>
+								</div>
+								<!-- 錯誤顯示 -->
+								<div class="col">
+									<h6 id="login-status" class="login-status text-right"></h6>
+								</div>
+							</div>
+
+							<!-- 表單 -->
+							<form method="POST" id="loginForm" class="my-login-validation" novalidate="">
+
+								<!-- 信箱 -->
 								<div class="form-group">
 									<label for="email">E-Mail</label>
-									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+									<input id="email" type="email" class="form-control" name="email" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
 								</div>
 
+								<!-- 密碼 -->
 								<div class="form-group">
 									<label for="password">Password
 										<a href="forgot.html" class="float-right">
@@ -42,6 +55,7 @@
 							    	</div>
 								</div>
 
+								<!-- 記得我 -->
 								<div class="form-group">
 									<div class="custom-checkbox custom-control">
 										<input type="checkbox" name="remember" id="remember" class="custom-control-input">

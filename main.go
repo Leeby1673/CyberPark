@@ -28,8 +28,9 @@ func main() {
 	// 註冊頁面
 	router.GET("/signup", handlers.SignupPageHandler)
 	router.POST("/signup", handlers.SignupHandler)
-	// 首頁
+	// 首頁，GET 需補中間件檢查是否登入
 	router.GET("/cyberpark", handlers.HomePageHandler)
+	router.POST("/cyberpark", handlers.HomeHandler)
 
 	// 啟動服務
 	router.Run(":8080")
