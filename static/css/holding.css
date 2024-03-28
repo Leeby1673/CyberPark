@@ -1,0 +1,85 @@
+body {
+    background-color: #181A20;
+    color: #fff;
+}
+
+/* 每個容器 */
+.container{
+    margin: 1em auto;
+    max-width: 1000px;
+}
+
+/* 導覽列 */
+.navigation{
+    display: flex;
+    justify-content: space-between; /* 將兩個 div 放在一行，左右對齊 */
+    align-items: center; /* 將兩個 div 垂直居中對齊 */
+    /* background-color: #333; */
+    color: white;
+    padding: 10px;
+}
+
+.navigation .nav-link{
+    color: #fff;
+}
+
+#nav-header{
+    max-width: 1600px;
+}
+
+.navigation .nav-link:hover{
+    color: #6088FF;
+}
+
+.navigation .nav-unit{
+    padding: 1.2em;
+}
+
+.right-nav{
+    display: flex;
+}
+
+/* 資產估值 */
+.total-valuation{
+    padding: 1.5em;
+    border: 1px solid #2B3139; /* 1像素寬的灰色實線框線 */
+    border-radius: 1em; /* 5像素的圓角 */
+}
+.header-text{
+    font-size: 2em;
+    padding: .5rem .5rem;
+}
+
+/* 入金功能 */
+.modal-title{
+    color: #6c757d;
+}
+
+.modal-content{
+    background-color: #181A20;
+}
+
+/* 資產明細 */
+.value-text{
+    font-size: 1.5em;
+}
+
+.holding-detail{
+    padding: 1.5em;
+    border: 1px solid #2B3139; /* 1像素寬的灰色實線框線 */
+    border-radius: 1em; /* 5像素的圓角 */
+}
+
+/* 資產表格 */
+.table-dark{
+    --bs-table-bg:#181A20;
+}
+
+.holding-text{
+    font-size: 1.5em;
+    padding: .5rem .5rem;
+}
+
+.table tbody tr td {
+    line-height: 3.5em;
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>holding</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../static/css/holding.css">
+</head>
+<body>
+        <!-- 導覽吧 -->
+        <div id="nav-header" class="container">
+            <div class="navigation">
+                <!-- 主選項 -->
+                <div id="left-nav">
+                    <div class="nav-unit">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">LOGO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">市場</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">交易</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- 會員菜單 -->
+                <div id="right-nav">
+                    <div class="nav-unit">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              會員
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><span class="dropdown-item-text">會員姓名</span></li>
+                                <li><a class="dropdown-item" href="#">持有資產</a></li>
+                                <li><a class="dropdown-item" href="#">交易紀錄</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">登出</a></li>
+                            </ul>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- 標頭 -->
+        <div class="container">
+            <h3 class="header-text">總資產</h3>
+        </div>
+        
+        <!-- 資產估值 -->
+        <div class="container">
+            <div class="total-valuation d-flex justify-content-between">
+                    <!-- 估值列 -->
+                    <div>
+                        <div class="value-text">
+                            估值
+                        </div>
+                        <div class="number">
+                            666.000
+                        </div>
+                        <span class="price-change">
+                            本日漲跌
+                        </span>
+                        <span class="price-change-num">
+                           +203.67
+                        </span>
+                        <span class="price-change-pct">
+                            (8.23%)
+                        </span>
+                    </div>
+
+                    <!-- 入金模板 -->
+                    <div class="Deposit-model">
+                        <div class="modal fade" id="deposit" tabindex="-1" aria-labelledby="depositModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="depositModalLabel">入金</h5>
+                                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                
+                                    <!-- 入金表格 -->
+                                    <form>
+                                        <div class="form-list">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                                <span class="input-group-text">USDT</span>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">確定</button>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+
+                    <!-- 入金按鈕 -->
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deposit">入金</button>
+                    </div>
+            </div>
+        </div>
+
+        <!-- 資產明細 -->
+        <div class="container">
+            <div class="holding-detail">
+                <div class="holding-text">
+                    持有
+                </div>
+
+                <!-- 資產列表 -->
+                <div class="holding-table">
+                    <table class="table table-dark table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">幣種</th>
+                                <th scope="col">金額</th>
+                                <th scope="col">幣價</th>
+                                <th scope="col">本日漲跌</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 這裡可以動態生成表格內容，根據你的數據來顯示虛擬貨幣信息 -->
+                            <tr>
+                                <td>BTC</td>
+                                <td>0.2456</td>
+                                <td>3,678</td>
+                                <td>+1.46</td>
+                            </tr>
+                            <tr>
+                                <td>ETH</td>
+                                <td>0.2456</td>
+                                <td>3,678</td>
+                                <td>-0.12</td>
+                            </tr>
+                            <tr>
+                                <td>USDT</td>
+                                <td>0.2456</td>
+                                <td>3,678</td>
+                                <td>+1.55</td>
+                            </tr>
+                            <!-- 在這裡添加更多的行，顯示更多虛擬貨幣的信息 -->
+                        </tbody>
+                    </table>
+                </div>     
+            </div>
+        </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script src="../static/js/holding.js"></script>
+</body>
+</html>

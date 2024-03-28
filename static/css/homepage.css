@@ -1,0 +1,55 @@
+body {
+    background-color: #181A20;
+    color: #fff;
+}
+
+/* 每個容器 */
+.container{
+    margin: 1em auto;
+    max-width: 1000px;
+}
+
+/* 導覽列 */
+.navigation{
+    display: flex;
+    justify-content: space-between; /* 將兩個 div 放在一行，左右對齊 */
+    align-items: center; /* 將兩個 div 垂直居中對齊 */
+    color: white;
+    padding: 10px;
+}
+
+#nav-header{
+    max-width: 1600px;
+}
+
+.navigation .nav-link{
+    color: #fff;
+}
+
+.navigation .nav-link:hover{
+    color: #6088FF;
+}
+
+.navigation .nav-unit{
+    padding: 1.2em;
+}
+
+.right-nav{
+    display: flex;
+}
+
+
+/* table */
+.table-dark{
+    --bs-table-bg:#181A20;
+}
+
+/* 增加每個元素的行高 */
+.table tbody tr td {
+    line-height: 3.5em;
+}
+
+/* 對每個 tr 元素變成可點擊 */
+.table tbody tr:hover {
+    cursor: pointer;
+}

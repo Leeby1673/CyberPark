@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>history</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../static/css/history.css">
+</head>
+<body>
+    <!-- 導覽吧 -->
+    <div id="nav-header" class="container">
+        <div class="navigation">
+            <!-- 主選項 -->
+            <div id="left-nav">
+                <div class="nav-unit">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">LOGO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">市場</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">交易</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    
+            <!-- 會員菜單 -->
+            <div id="right-nav">
+                <div class="nav-unit">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            會員
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><span class="dropdown-item-text">會員姓名</span></li>
+                            <li><a class="dropdown-item" href="#">持有資產</a></li>
+                            <li><a class="dropdown-item" href="#">交易紀錄</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">登出</a></li>
+                        </ul>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 標頭 -->
+    <div class="container">
+        <h3 class="header-text">交易紀錄</h3>
+    </div>
+    
+    <!-- 搜尋條件 -->
+    <div class="container">
+        <div class="search-zone d-flex justify-content-between">
+            <!-- 搜尋列 -->       
+            <div class="search-func">
+                <form action="POST">
+                    <!-- 類別 -->
+                    <div class="category-func">
+                        <div class="search-text">
+                            搜尋設定
+                        </div>
+
+                        <div class="margin-bottom-gap">
+                            <span class="category-text">
+                                顯示項目:
+                            </span>
+                            
+                            <div class="search-func-condition">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                    <label class="form-check-label" for="inlineCheckbox1">買入</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                    <label class="form-check-label" for="inlineCheckbox2">賣出</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 時間範圍 -->
+                    <div class="time-func">
+                        <span class="time-test">
+                            時間範圍:
+                        </span>
+
+                        <div class="search-func-condition">
+                            <div class="time-select-date">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>7天</option>
+                                    <option value="30">30天</option>
+                                </select>
+                            </div>
+    
+                            <button type="submit" class="search-btn btn btn-primary">搜尋</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 搜尋結果 -->
+    <div class="container">
+        <div class="search-result-zone">
+            <div class="search-text">
+                搜尋結果
+            </div>
+
+            <!-- 資產列表 -->
+            <div class="holding-table">
+                <table class="table table-dark table-hover table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">時間</th>
+                            <th scope="col">交易類別</th>
+                            <th scope="col">幣種</th>
+                            <th scope="col">數量</th>
+                            <th scope="col">價格</th>
+                            <th scope="col">總額</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 這裡可以動態生成表格內容，根據你的數據來顯示虛擬貨幣信息 -->
+                        <tr>
+                            <td>2024/03/25</td>
+                            <td>買進</td>
+                            <td>BTC</td>
+                            <td>0.032</td>
+                            <td>70000</td>
+                            <td>1576</td>
+                        </tr>
+                        <tr>
+                            <td>2024/02/13</td>
+                            <td>賣出</td>
+                            <td>ETH</td>
+                            <td>0.032</td>
+                            <td>70000</td>
+                            <td>1576</td>
+                        </tr>
+                        <tr>
+                            <td>2023/12/13</td>
+                            <td>賣出</td>
+                            <td>USDT</td>
+                            <td>0.032</td>
+                            <td>70000</td>
+                            <td>1576</td>
+                        </tr>
+                        <!-- 在這裡添加更多的行，顯示更多虛擬貨幣的信息 -->
+                    </tbody>
+                </table>
+            </div>     
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script src="../static/js/history.js"></script>
+</body>
+</html>

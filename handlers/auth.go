@@ -5,8 +5,10 @@ import (
 	"cyberpark/database/models"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -45,13 +47,40 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
+	// 產生 JWT
+	token, err := generateJWT(user.Email)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate JWT"})
+		return
+	}
+
+	// 將 JWT 放在 cookie
+	c.SetCookie("token", token, 15, "/", "localhost", false, true)
+
 	// 驗證成功
-	c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
+	c.JSON(http.StatusOK, gin.H{"message": "Login successful", "token": token})
 }
 
 // 獲取註冊網頁
 func SignupPageHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "signup.html", nil)
+}
+
+// 生產 JWT func
+func generateJWT(email string) (string, error) {
+	// 定義簽署 JWT 的密鑰
+	jwtkey := []byte("your_secret_key")
+
+	// 使用聲明和密鑰建立 token
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"ExpiresAt": jwt.NewNumericDate(time.Now().Add(20 * time.Second)),
+		"Subject":   email,
+	})
+	tokenstring, err := token.SignedString(jwtkey)
+	if err != nil {
+		return "", err
+	}
+	return tokenstring, nil
 }
 
 // 註冊會員邏輯
