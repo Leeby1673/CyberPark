@@ -13,3 +13,12 @@ type User struct {
 	CreatedAt time.Time `gorm:"type:timestamp;column:created_at"`
 	UpdatedAt time.Time `gorm:"type:timestamp;column:updated_at"`
 }
+
+// 持有資產
+type Holding struct {
+	User        User    `gorm:"foreignkey:UserID"` // 定義外鍵關係
+	Currency    string  // 幣種
+	Amount      float64 // 金額
+	Price       float64 // 幣價
+	DailyChange float64 // 本日漲跌
+}

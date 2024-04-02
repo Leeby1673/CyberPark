@@ -13,12 +13,14 @@ import (
 	"gorm.io/gorm"
 )
 
-// 獲取登入網頁
+// 獲取登入網頁 處理器
 func LoginPageHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "login.html", nil)
+	// 獲取
+	referer := c.Request.Header.Get("referer")
+	c.HTML(http.StatusOK, "login.html", gin.H{"referer": referer})
 }
 
-// 登入會員邏輯
+// 登入會員邏輯 處理器
 func LoginHandler(c *gin.Context) {
 	db := db.Connect()
 	var user models.User
@@ -54,36 +56,33 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
-	// 將 JWT 放在 cookie
-	c.SetCookie("token", token, 15, "/", "localhost", false, true)
+	// 將 JWT 放在 cookie, cookie 時間是 13 天, 略短 JWT
+	c.SetCookie("token", token, 1123200, "/", "localhost", false, true)
 
-	// 驗證成功
-	c.JSON(http.StatusOK, gin.H{"message": "Login successful", "token": token})
+	// 讀取 cookie, 找回原路使用
+	prevPath, err := c.Cookie("prevPath")
+	fmt.Println(err)
+
+	// 若出錯, 表示首次登入
+	if err != nil {
+		prevPath = "/cyberpark"
+	}
+
+	// 刪除路由 cookie, 傳送資訊給前端
+	c.SetCookie("prevPath", "", -1, "/", "localhost", false, true)
+	c.JSON(http.StatusOK, gin.H{
+		"message":  "Login successful",
+		"redirect": prevPath,
+		"token":    token,
+	})
 }
 
-// 獲取註冊網頁
+// 獲取註冊網頁 處理器
 func SignupPageHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "signup.html", nil)
 }
 
-// 生產 JWT func
-func generateJWT(email string) (string, error) {
-	// 定義簽署 JWT 的密鑰
-	jwtkey := []byte("your_secret_key")
-
-	// 使用聲明和密鑰建立 token
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"ExpiresAt": jwt.NewNumericDate(time.Now().Add(20 * time.Second)),
-		"Subject":   email,
-	})
-	tokenstring, err := token.SignedString(jwtkey)
-	if err != nil {
-		return "", err
-	}
-	return tokenstring, nil
-}
-
-// 註冊會員邏輯
+// 註冊會員邏輯 處理器
 func SignupHandler(c *gin.Context) {
 	db := db.Connect()
 	var user models.User
@@ -129,3 +128,22 @@ func SignupHandler(c *gin.Context) {
 // func LogoutHandler(c *gin.Context) {
 // 	// 處理登出請求
 // }
+
+// 生產 JWT func
+func generateJWT(email string) (string, error) {
+	// 定義簽署 JWT 的密鑰
+	jwtkey := []byte("your_secret_key")
+
+	// 使用聲明和密鑰建立 token, JWT 時間是 1 分鐘
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		// sub 代表用戶, 時間設定為 2個禮拜
+		"exp": jwt.NewNumericDate(time.Now().Add(24 * 7 * time.Hour)),
+		"sub": email,
+	})
+	tokenstring, err := token.SignedString(jwtkey)
+	if err != nil {
+		return "", err
+	}
+
+	return tokenstring, nil
+}

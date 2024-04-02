@@ -35,7 +35,7 @@ body {
     padding: 1.2em;
 }
 
-.right-nav{
+#right-nav{
     display: flex;
 }
 

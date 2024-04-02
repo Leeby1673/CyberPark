@@ -17,8 +17,9 @@ document.addEventListener("DOMContentLoaded", function() {
         this.classList.add('was-validated');
 
         // 發送 POST 請求到後端服務器
-        fetch("/", {
+        fetch("/login", {
             method: "POST",
+            redirect: 'follow',
             body: formData
         })
         // 接收後端返回的響應
@@ -36,9 +37,9 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log(data);
             // 當接收到成功的訊息，顯示 h6 標籤
             if (data.message === "Login successful"){
-                    window.location.href = "/cyberpark";
+                    window.location.href = data.redirect; // 根據 JSON 中的 redirect 欄位執行重定向
 
-            }
+            } 
             // 可以根據響應中的信息執行相應的操作，例如重新導向到登錄頁面或顯示註冊成功消息
         })
         .catch(error => {

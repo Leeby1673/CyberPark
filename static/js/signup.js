@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 statusMsg.style.display = 'block';
                 // 延遲 2 秒後跳轉回 login 頁面
                 setTimeout(function() {
-                    window.location.href = "/";
+                    window.location.href = "/login";
                 }, 1500);
             }
             console.log(data);
