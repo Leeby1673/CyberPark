@@ -8,7 +8,10 @@ import (
 
 // 獲取首頁
 func HomePageHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "homepage.html", nil)
+	// 調用 CatchCryptoData 獲取幣價資訊
+	cryptodata := CatchCryptoData()
+	// 將幣價資訊給 html 模板
+	c.HTML(http.StatusOK, "homepage.html", gin.H{"CryptoData": cryptodata})
 }
 
 // 首頁邏輯
