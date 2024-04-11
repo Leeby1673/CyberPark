@@ -13,7 +13,6 @@ import (
 )
 
 func CatchCryptoData() []models.CryptoData {
-
 	// 建立 API 請求
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest", nil)
@@ -65,6 +64,7 @@ func CatchCryptoData() []models.CryptoData {
 		return true // 繼續迭代
 	})
 
+	// 打印數據
 	for _, data := range cryptoData {
 		fmt.Printf("Symbol: %s, Price: %f, PercentChange24H: %f, MarketCap: %f, Volumn24H: %f\n",
 			data.Symbol, data.Price, data.PercentChange24H, data.MarketCap, data.Volume24H)

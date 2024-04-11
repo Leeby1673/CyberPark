@@ -31,5 +31,5 @@ type CryptoData struct {
 	Price            float64 `json:"price"`              // 價格
 	PercentChange24H float64 `json:"percent_change_24h"` // 24 小時漲跌
 	MarketCap        float64 `json:"market_cap"`         // 市值
-	Volume24H        float64 `json:"volume_24H"`         // 交易量
+	Volume24H        float64 `json:"volume_24h"`         // 交易量
 }

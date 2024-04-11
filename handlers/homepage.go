@@ -9,9 +9,9 @@ import (
 // 獲取首頁
 func HomePageHandler(c *gin.Context) {
 	// 調用 CatchCryptoData 獲取幣價資訊
-	cryptodata := CatchCryptoData()
+	// cryptodata := CatchCryptoData()
 	// 將幣價資訊給 html 模板
-	c.HTML(http.StatusOK, "homepage.html", gin.H{"CryptoData": cryptodata})
+	c.HTML(http.StatusOK, "homepage.html", nil)
 }
 
 // 首頁邏輯

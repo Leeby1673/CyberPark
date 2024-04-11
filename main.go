@@ -36,6 +36,8 @@ func main() {
 	// 首頁，GET 需補中間件檢查是否登入
 	router.GET("/cyberpark", handlers.HomePageHandler)
 	router.POST("/cyberpark", handlers.HomeHandler)
+	// websocket 路由, 實現即時價格
+	router.GET("/ws", handlers.WsHomePageHandler)
 
 	// 需要中間件的路由
 	// 交易買賣頁面
