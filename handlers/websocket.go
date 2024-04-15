@@ -1,6 +1,9 @@
 package handlers
 
 import (
+	"cyberpark/database"
+	"cyberpark/database/models"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -21,20 +24,30 @@ var upgrader = websocket.Upgrader{
 
 // 用於定時調用 api 並發送出數據到前端
 func fetchCryptoData(conn *websocket.Conn) {
+	var db = database.DB
+
 	// 1 分鐘迴圈一次
+	ticker := time.NewTicker(75 * time.Second)
+	defer ticker.Stop()
+
 	for {
-		cryptodata := CatchCryptoData()
 
 		// websocket 主要邏輯
 		// 發送數據給前端
-		err := conn.WriteJSON(cryptodata)
+		var cryptoData []models.CryptoData
+
+		if err := db.Find(&cryptoData).Error; err != nil {
+			log.Println("資料庫獲取貨幣資訊失敗:", err)
+			continue
+		}
+
+		err := conn.WriteJSON(cryptoData)
 		if err != nil {
 			log.Println("ws 傳送 JSON 失敗:", err)
 			return
 		}
-
-		// 計時器
-		time.Sleep(70 * time.Second)
+		fmt.Println("ws 推送數據給前端")
+		<-ticker.C
 	}
 }
 
@@ -50,5 +63,4 @@ func WsHomePageHandler(c *gin.Context) {
 
 	// 啟動一個 goroutine 定期發送數據到前端
 	go fetchCryptoData(conn)
-
 }

@@ -27,13 +27,19 @@
         
                 <!-- 會員菜單 -->
                 <div id="right-nav">
+                    <!-- 登入鈕 -->
+                    <div class="nav-unit">
+                        <button type="button" class="btn btn-outline-primary">登入</button>
+                    </div>
+
+
                     <div class="nav-unit">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                               會員
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><span class="dropdown-item-text">會員姓名</span></li>
+                                <li><span class="dropdown-item-text">{{ .userEmail }}</span></li>
                                 <li><a class="dropdown-item" href="#">持有資產</a></li>
                                 <li><a class="dropdown-item" href="#">交易紀錄</a></li>
                                 <li><hr class="dropdown-divider"></li>

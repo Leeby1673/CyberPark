@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	db "cyberpark/database"
+	"cyberpark/database"
 	"cyberpark/database/models"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -22,16 +23,20 @@ func LoginPageHandler(c *gin.Context) {
 
 // 登入會員邏輯 處理器
 func LoginHandler(c *gin.Context) {
-	db := db.Connect()
 	var user models.User
 	var existingUser models.User
+	var db = database.DB
+
+	if db == nil {
+		log.Panicln("db 等於 nil")
+		return
+	}
 
 	// 使用者輸入的資料映射到 user
 	if err := c.ShouldBind(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
 	// 檢查資料庫有無使用者的帳號
 	if err := db.Where("email = ?", user.Email).First(&existingUser).Error; err != nil {
 		fmt.Println(err)
@@ -61,8 +66,6 @@ func LoginHandler(c *gin.Context) {
 
 	// 讀取 cookie, 找回原路使用
 	prevPath, err := c.Cookie("prevPath")
-	fmt.Println(err)
-
 	// 若出錯, 表示首次登入
 	if err != nil {
 		prevPath = "/cyberpark"
@@ -84,8 +87,9 @@ func SignupPageHandler(c *gin.Context) {
 
 // 註冊會員邏輯 處理器
 func SignupHandler(c *gin.Context) {
-	db := db.Connect()
 	var user models.User
+	var db = database.DB
+
 	if err := c.ShouldBind(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -94,7 +98,7 @@ func SignupHandler(c *gin.Context) {
 
 	// 檢查資料庫裡是否有相同的帳號，將資料庫已存在的帳號資訊存給 existingUser 變數
 	var existingUser models.User
-	if err := db.Where("email = ?", user.Email).Limit(1).Find(&existingUser).Error; err != nil {
+	if err := database.DB.Where("email = ?", user.Email).Limit(1).Find(&existingUser).Error; err != nil {
 		fmt.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Database error"})
 		return

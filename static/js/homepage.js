@@ -1,8 +1,7 @@
-// 建立 websocket 連接
-var socket = new WebSocket("ws://" + window.location.host + "/ws");
+
 
 // 監聽 websocket 連接的 onmessage 事件
-socket.onmessage = function(event) {
+window.socket.onmessage = function(event) {
     // 解析後端傳來的 JSON 數據
     var cryptodata = JSON.parse(event.data);
     console.log(cryptodata);

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cyberpark/database"
 	"cyberpark/handlers"
 	"cyberpark/middleware"
 
@@ -8,9 +9,8 @@ import (
 )
 
 func main() {
-	// 資料庫初始化
-	// db := db.Connect()
-	// fmt.Println("初始化資料庫", &db)
+	database.Connect()
+	go database.StartBackgroundTask()
 
 	// 建立 Gin 路由器
 	router := gin.Default()
