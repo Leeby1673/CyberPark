@@ -133,32 +133,19 @@
                         <thead>
                             <tr>
                                 <th scope="col">幣種</th>
-                                <th scope="col">金額</th>
-                                <th scope="col">幣價</th>
+                                <th scope="col">持有數量</th>
+                                <th scope="col">換算美金</th>
                                 <th scope="col">本日漲跌</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- 這裡可以動態生成表格內容，根據你的數據來顯示虛擬貨幣信息 -->
+                        <tbody id="holding-data">
+                            <!-- 使用 go HTML 模板 -->
                             <tr>
                                 <td>BTC</td>
                                 <td>0.2456</td>
                                 <td>3,678</td>
                                 <td>+1.46</td>
                             </tr>
-                            <tr>
-                                <td>ETH</td>
-                                <td>0.2456</td>
-                                <td>3,678</td>
-                                <td>-0.12</td>
-                            </tr>
-                            <tr>
-                                <td>USDT</td>
-                                <td>0.2456</td>
-                                <td>3,678</td>
-                                <td>+1.55</td>
-                            </tr>
-                            <!-- 在這裡添加更多的行，顯示更多虛擬貨幣的信息 -->
                         </tbody>
                     </table>
                 </div>     

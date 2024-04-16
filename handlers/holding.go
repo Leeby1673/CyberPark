@@ -10,7 +10,6 @@ import (
 // 獲取持有資產頁面
 func HoldingPageHandler(c *gin.Context) {
 	// 從 Context 中獲得用戶資訊
-	// 懷疑！重新登入和這個有關, 應該不是了
 	user, exists := c.Get("userEmail")
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{})

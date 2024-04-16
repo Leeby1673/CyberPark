@@ -20,7 +20,12 @@ func Connect() {
 		log.Fatal(err)
 	}
 
-	db.AutoMigrate(&models.User{}, &models.CryptoData{}, &models.Holding{})
+	db.AutoMigrate(
+		&models.User{},
+		&models.Holding{},
+		&models.Transaction{},
+		&models.CryptoData{},
+	)
 
 	sqldb, err := db.DB()
 	if err != nil {

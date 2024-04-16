@@ -19,7 +19,7 @@ func StartBackgroundTask() {
 		// 5 分鐘更新一次
 		go catchCryptoData()
 		fmt.Println("開始更新 api 數據")
-		time.Sleep(5 * time.Minute)
+		time.Sleep(20 * time.Minute)
 	}
 }
 
