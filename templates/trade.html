@@ -86,64 +86,70 @@
 
                 <!-- tradeinner -->
                 <div class="tab-content">    
+
                     <!-- 限價 -->
                     <div class="limitOrderForm tab-pane fade show active" id="limitOrderForm" role="tabpanel" aria-labelledby="limitOrderForm-tab">
                         <div class="row">
                             <div class="col buy">
                                 <div class="availavle-cost">
-                                    <span>可用</span>
-                                    <span>6666</span>
+                                    <!-- 取得會員可用的 USDT -->
+                                    <span>可用USDT</span>
+                                    <span>{{ .userUsdtAmount }}</span>
                                 </div>
                                 <form>
                                     <div class="form-list">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">價格</span>
-                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                            <!-- 拿到資料庫的幣種價格 -->
+                                            <input type="text" class="form-control buyPrice price-format" value="{{ .cryptoPrice }}" aria-label="Amount (to the nearest dollar)">
                                             <span class="input-group-text">USDT</span>
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">數量</span>
-                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                            <span class="input-group-text">BTC</span>
+                                            <input type="text" class="form-control buyQuantity" aria-label="Amount (to the nearest dollar)">
+                                            <span class="input-group-text">{{ .symbol }}</span>
                                         </div>
 
                                         <div class="total-price">
+                                            <!-- 將價格 * 數量顯示 -->
                                             <span>總額:</span>
-                                            <span>6666</span>
+                                            <span class="buyTotal"></span>
                                         </div>
                                         
                                         <div class="d-grid gap-1">
-                                            <button class="btn btn-success" type="button">買入BTC</button>
+                                            <button class="btn btn-success" type="button">買入{{ .symbol }}</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="col sell">
                                 <div class="availavle-cost">
-                                    <span>可用</span>
-                                    <span>6666</span>
+                                    <!-- 取得會員持有該幣種的數量 -->
+                                    <span>可用{{ .symbol }}</span>
+                                    <span>{{ .symbolAmount }}</span>
                                 </div>
                                 <form>
                                     <div class="form-list">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">價格</span>
-                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                            <input type="text" class="form-control sellPrice" aria-label="Amount (to the nearest dollar)">
                                             <span class="input-group-text">USDT</span>
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">數量</span>
-                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                            <span class="input-group-text">BTC</span>
+                                            <input type="text" class="form-control sellQuantity" aria-label="Amount (to the nearest dollar)">
+                                            <span class="input-group-text">{{ .symbol }}</span>
                                         </div>
 
                                         <div class="total-price">
+                                            <!-- 將價格 * 數量顯示 -->
                                             <span>總額:</span>
-                                            <span>6666</span>
+                                            <span class="sellTotal"></span>
                                         </div>
                                         <div class="d-grid gap-1">
-                                            <button class="btn btn-warning" type="button">賣出BTC</button>
+                                            <button class="btn btn-warning" type="button">賣出{{ .symbol }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -156,8 +162,8 @@
                         <div class="row">
                             <div class="col buy">
                                 <div class="availavle-cost">
-                                    <span>可用</span>
-                                    <span>6666</span>
+                                    <span>可用USDT</span>
+                                    <span>{{ .userUsdtAmount }}</span>
                                 </div>
                                 <form>
                                     <div class="form-list">
@@ -174,15 +180,15 @@
                                         </div>
                                         
                                         <div class="d-grid gap-1">
-                                            <button class="btn btn-success" type="button">買入BTC</button>
+                                            <button class="btn btn-success" type="button">買入{{ .symbol }}</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="col sell">
                                 <div class="availavle-cost">
-                                    <span>可用</span>
-                                    <span>6666</span>
+                                    <span>可用{{ .symbol }}</span>
+                                    <span>{{ .symbolAmount }}</span>
                                 </div>
                                 <form>
                                     <div class="form-list">
@@ -199,7 +205,7 @@
                                         </div>
 
                                         <div class="d-grid gap-1">
-                                            <button class="btn btn-warning" type="button">賣出BTC</button>
+                                            <button class="btn btn-warning" type="button">賣出{{ .symbol }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -211,7 +217,7 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="../static/js/trade.js"></script>

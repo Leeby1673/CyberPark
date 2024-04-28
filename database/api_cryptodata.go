@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math"
 	"net/http"
 	"net/url"
 	"os"
@@ -64,24 +65,37 @@ func catchCryptoData() {
 		marketCap := value.Get("quote.USD.market_cap").Float()
 		volume24h := value.Get("quote.USD.volume_24h").Float()
 
+		// 取小數後兩位, 並四捨五入
+		price = roundTwoDecimalPlaces(price)
+		percentChange24h = roundTwoDecimalPlaces(percentChange24h)
+		marketCap = roundTwoDecimalPlaces(marketCap)
+		volume24h = roundTwoDecimalPlaces(volume24h)
+
+		fmt.Println("小數點轉換後:", price, percentChange24h, marketCap, volume24h)
+
 		cryptoData := models.CryptoData{
-			Symbol:           symbol,
-			Price:            price,
-			PercentChange24h: percentChange24h,
-			MarketCap:        marketCap,
-			Volume24h:        volume24h,
+			CryptoSymbol:           symbol,
+			CryptoPrice:            price,
+			CryptoPercentChange24h: percentChange24h,
+			CryptoMarketCap:        marketCap,
+			CryptoVolume24h:        volume24h,
 		}
 
 		// 儲存到資料庫
-		if err := DB.Where("symbol = ?", cryptoData.Symbol).Save(&cryptoData).Error; err != nil {
+		if err := DB.Where("crypto_symbol = ?", cryptoData.CryptoSymbol).Save(&cryptoData).Error; err != nil {
 			log.Println("保存數據失敗:", err)
 			return false
 		}
 
 		// 打印數據
 		fmt.Printf("Symbol: %s, Price: %f, PercentChange24H: %f, MarketCap: %f, Volumn24H: %f\n",
-			cryptoData.Symbol, cryptoData.Price, cryptoData.PercentChange24h, cryptoData.MarketCap, cryptoData.Volume24h)
+			cryptoData.CryptoSymbol, cryptoData.CryptoPrice, cryptoData.CryptoPercentChange24h, cryptoData.CryptoMarketCap, cryptoData.CryptoVolume24h)
 
 		return true // 繼續迭代
 	})
+}
+
+// 換算函式
+func roundTwoDecimalPlaces(num float64) float64 {
+	return math.Round(num*100) / 100
 }

@@ -11,12 +11,12 @@ window.socket.onmessage = function(event) {
     tableBody.innerHTML = ""; // 清空表格內容
 
     cryptodata.forEach(function(data){
-        var row = tableBody.insertRow(); // 在表格中插入一行, 等同 html <tr>
-        var symbolCell = row.insertCell(0); // 等同 html <td>
-        var priceCell = row.insertCell(1);
-        var changeCell = row.insertCell(2);
-        var marketCapCell = row.insertCell(3);
-        var volumeCell = row.insertCell(4);
+        var trRow = tableBody.insertRow(); // 在表格中插入一行, 等同 html <tr>
+        var symbolCell = trRow.insertCell(0); // 等同 html <td>
+        var priceCell = trRow.insertCell(1);
+        var changeCell = trRow.insertCell(2);
+        var marketCapCell = trRow.insertCell(3);
+        var volumeCell = trRow.insertCell(4);
 
         // 將數據填入 <td>
         // 某些數值用 numeral.js 套件
@@ -25,5 +25,13 @@ window.socket.onmessage = function(event) {
         changeCell.textContent = data.percent_change_24h.toFixed(2) + "%";
         marketCapCell.textContent = numeral(data.market_cap).format('$0,0.00');
         volumeCell.textContent = numeral(data.volume_24h).format('$0,0.00');
+
+        // 監聽會員點擊事件，為每個幣種添加點擊事件處理器
+        trRow.addEventListener("click",function(){
+            // 動態生成跳轉的網址參數，根據用戶點擊的幣種
+            var tradeURL = "/trade?symbol=" + data.symbol;
+            // 跳轉交易頁面
+            window.location.href = tradeURL;
+        });
     });
 };
